@@ -18,7 +18,7 @@
     "prettier": "^1.18.2",
     "quick-lru": "^4.0.1"
   },
-  "description": "A wrapper for the jikan REST API.",
+  "description": "Updated fork of JikanTS, A wrapper for the jikan REST API.",
   "devDependencies": {
     "@types/got": "^9.6.7",
     "@types/pino": "^5.8.10",
@@ -46,10 +46,10 @@
   ],
   "license": "MPL-2.0",
   "main": "dist/src/index.js",
-  "name": "jikants",
+  "name": "@piigo/jikants",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Julien-Broyard/jikants"
+    "url": "https://github.com/JulienLavocat/jikants"
   },
   "scripts": {
     "build": "tsc",
