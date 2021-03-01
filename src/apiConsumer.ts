@@ -1,8 +1,7 @@
-import got from 'got';
-import { JikanHttpClient, queue } from './utils';
+import got from "got";
+import { JikanHttpClient, queue } from "./utils";
 export class ApiConsumer {
-
-	protected httpClient: JikanHttpClient;
+	private httpClient: JikanHttpClient;
 
 	constructor(httpClient: JikanHttpClient) {
 		this.httpClient = httpClient;
@@ -16,5 +15,4 @@ export class ApiConsumer {
 		// Probably fix this in the future
 		return body as T;
 	}
-
 }

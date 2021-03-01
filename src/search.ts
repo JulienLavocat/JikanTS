@@ -2,7 +2,7 @@ import ow from "ow";
 import {
 	Filters,
 	Search as SearchResult,
-	SearchTypes
+	SearchTypes,
 } from "./interfaces/search/Search";
 
 import { ApiConsumer } from "./apiConsumer";

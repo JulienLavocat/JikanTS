@@ -13,20 +13,20 @@ import { api, Logger, queue } from "./utils";
  * @param id - The magazine id
  */
 const get = async (id: number, page: number = 1) => {
-  try {
-    ow(id, ow.number.positive);
-    ow(page, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
+		ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/magazine/${id}/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/magazine/${id}/${page}`, {})
+		);
 
-    return body as Magazine;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Magazine;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  get
+	get,
 };

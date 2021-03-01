@@ -19,21 +19,22 @@ import { api, Logger, queue } from "./utils";
  * @param page - The page number
  */
 const animeList = async (
-  username: string,
-  type: AnimeListTypes = "all",
-  page: number = 1
+	username: string,
+	type: AnimeListTypes = "all",
+	page: number = 1
 ) => {
-  try {
-    ow(page, ow.number.positive);
+	try {
+		ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/user/${username}/animelist/${type}/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () =>
+				await api(`/user/${username}/animelist/${type}/${page}`, {})
+		);
 
-    return body as AnimeList;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as AnimeList;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -43,17 +44,17 @@ const animeList = async (
  * @param page - The page number
  */
 const friends = async (username: string, page: number = 1) => {
-  try {
-    ow(page, ow.number.positive);
+	try {
+		ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/user/${username}/friends/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/user/${username}/friends/${page}`, {})
+		);
 
-    return body as Friends;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Friends;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -63,33 +64,33 @@ const friends = async (username: string, page: number = 1) => {
  * @param type - Anime, Manga or Both
  */
 const history = async (username: string, type: Types = "both") => {
-  try {
-    if (type === "anime") {
-      const anime = await queue.add(
-        async () => await api(`/user/${username}/history/anime`, {})
-      );
+	try {
+		if (type === "anime") {
+			const anime = await queue.add(
+				async () => await api(`/user/${username}/history/anime`, {})
+			);
 
-      return anime.body as History;
-    }
+			return anime.body as History;
+		}
 
-    if (type === "both") {
-      const both = await queue.add(
-        async () => await api(`/user/${username}/history`, {})
-      );
+		if (type === "both") {
+			const both = await queue.add(
+				async () => await api(`/user/${username}/history`, {})
+			);
 
-      return both.body as History;
-    }
+			return both.body as History;
+		}
 
-    if (type === "manga") {
-      const manga = await queue.add(
-        async () => await api(`/user/${username}/history/manga`, {})
-      );
+		if (type === "manga") {
+			const manga = await queue.add(
+				async () => await api(`/user/${username}/history/manga`, {})
+			);
 
-      return manga.body as History;
-    }
-  } catch (error) {
-    Logger.error(error);
-  }
+			return manga.body as History;
+		}
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -100,21 +101,22 @@ const history = async (username: string, type: Types = "both") => {
  * @param page - The page number
  */
 const mangaList = async (
-  username: string,
-  type: MangaListTypes = "all",
-  page: number = 1
+	username: string,
+	type: MangaListTypes = "all",
+	page: number = 1
 ) => {
-  try {
-    ow(page, ow.number.positive);
+	try {
+		ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/user/${username}/mangalist/${type}/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () =>
+				await api(`/user/${username}/mangalist/${type}/${page}`, {})
+		);
 
-    return body as MangaList;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as MangaList;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -123,21 +125,21 @@ const mangaList = async (
  * @param username - Username on MyAnimeList
  */
 const profile = async (username: string) => {
-  try {
-    const { body } = await queue.add(
-      async () => await api(`/user/${username}`, {})
-    );
+	try {
+		const { body } = await queue.add(
+			async () => await api(`/user/${username}`, {})
+		);
 
-    return body as Profile;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Profile;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  animeList,
-  friends,
-  history,
-  mangaList,
-  profile
+	animeList,
+	friends,
+	history,
+	mangaList,
+	profile,
 };

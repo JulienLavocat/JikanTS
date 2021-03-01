@@ -13,14 +13,13 @@ import Search from "./search";
 import Season from "./season";
 import Top from "./top";
 import User from "./user";
-import { createHttpClient, JikanHttpClient } from './utils';
+import { createHttpClient, JikanHttpClient } from "./utils";
 
 const baseUrl = "https://api.jikan.moe/v3";
 
 export default class Jikan {
-
 	public Anime: Anime;
-	// public Club: Club;
+	public Club: Club;
 	// public Genre: Genre;
 	// public Magazine: Magazine;
 	// public Manga: Manga;
@@ -40,6 +39,6 @@ export default class Jikan {
 
 		this.Anime = new Anime(this.httpClient);
 		this.Search = new Search(this.httpClient);
+		this.Club = new Club(this.httpClient);
 	}
-
-};
+}

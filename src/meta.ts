@@ -15,37 +15,40 @@ import { api, Logger, queue } from "./utils";
  * @param offset - 1,000 requests are shown per page, you can use the offset to show more
  */
 const requests = async (
-  type: Types = "anime",
-  period: Periods = "monthly",
-  offset: number = 1000
+	type: Types = "anime",
+	period: Periods = "monthly",
+	offset: number = 1000
 ) => {
-  try {
-    ow(offset, ow.number.positive);
+	try {
+		ow(offset, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/meta/requests/${type}/${period}/${offset}`, {})
-    );
+		const { body } = await queue.add(
+			async () =>
+				await api(`/meta/requests/${type}/${period}/${offset}`, {})
+		);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
  * Fetches the status of the Jikan REST API
  */
 const status = async () => {
-  try {
-    const { body } = await queue.add(async () => await api("/meta/status", {}));
+	try {
+		const { body } = await queue.add(
+			async () => await api("/meta/status", {})
+		);
 
-    return body as Status;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Status;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  requests,
-  status
+	requests,
+	status,
 };

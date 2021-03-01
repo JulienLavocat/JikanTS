@@ -17,17 +17,17 @@ import { api, Logger, queue } from "./utils";
  * @param id - The manga id
  */
 const characters = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/characters`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/characters`, {})
+		);
 
-    return body as Characters;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Characters;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -36,17 +36,17 @@ const characters = async (id: number) => {
  * @param id - The manga id
  */
 const forum = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/forum`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/forum`, {})
+		);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -55,17 +55,17 @@ const forum = async (id: number) => {
  * @param id - The manga id
  */
 const moreInfo = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/moreinfo`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/moreinfo`, {})
+		);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -74,17 +74,17 @@ const moreInfo = async (id: number) => {
  * @param id - The manga id
  */
 const news = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/news`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/news`, {})
+		);
 
-    return body as News;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as News;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -93,17 +93,17 @@ const news = async (id: number) => {
  * @param id - The manga id
  */
 const pictures = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/pictures`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/pictures`, {})
+		);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -112,17 +112,17 @@ const pictures = async (id: number) => {
  * @param id - The manga id
  */
 const recommendations = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/recommendations`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/recommendations`, {})
+		);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -132,18 +132,18 @@ const recommendations = async (id: number) => {
  * @param page - The page number
  */
 const reviews = async (id: number, page: number = 1) => {
-  try {
-    ow(id, ow.number.positive);
-    ow(page, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
+		ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/reviews/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/reviews/${page}`, {})
+		);
 
-    return body as Reviews;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Reviews;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -152,17 +152,17 @@ const reviews = async (id: number, page: number = 1) => {
  * @param id - The manga id
  */
 const stats = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/stats`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/stats`, {})
+		);
 
-    return body as Stats;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Stats;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
@@ -172,28 +172,28 @@ const stats = async (id: number) => {
  * @param page - The page number
  */
 const userUpdates = async (id: number, page: number = 1) => {
-  try {
-    ow(id, ow.number.positive);
-    ow(page, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
+		ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/manga/${id}/userupdates/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/manga/${id}/userupdates/${page}`, {})
+		);
 
-    return body as UserUpdates;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as UserUpdates;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  characters,
-  forum,
-  moreInfo,
-  news,
-  pictures,
-  recommendations,
-  reviews,
-  stats,
-  userUpdates
+	characters,
+	forum,
+	moreInfo,
+	news,
+	pictures,
+	recommendations,
+	reviews,
+	stats,
+	userUpdates,
 };

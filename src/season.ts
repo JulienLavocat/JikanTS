@@ -16,51 +16,51 @@ import { api, Logger, queue } from "./utils";
  * @param season - The wanted season
  */
 const anime = async (year: number, season: Seasons) => {
-  try {
-    ow(year, ow.number.positive);
+	try {
+		ow(year, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/season/${year}/${season}`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/season/${year}/${season}`, {})
+		);
 
-    return body as Season;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Season;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
  * Feteches all the years & their respective seasons that can be parsed from MyAnimeList
  */
 const archive = async () => {
-  try {
-    const { body } = await queue.add(
-      async () => await api("/season/archive", {})
-    );
+	try {
+		const { body } = await queue.add(
+			async () => await api("/season/archive", {})
+		);
 
-    return body as SeasonArchive;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as SeasonArchive;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 /**
  * Fetches anime that have been announced for the upcoming seasons
  */
 const later = async () => {
-  try {
-    const { body } = await queue.add(
-      async () => await api("/season/later", {})
-    );
+	try {
+		const { body } = await queue.add(
+			async () => await api("/season/later", {})
+		);
 
-    return body as SeasonLater;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as SeasonLater;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  anime,
-  archive,
-  later
+	anime,
+	archive,
+	later,
 };

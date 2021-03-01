@@ -1,39 +1,27 @@
 import ow from "ow";
-
-// Interfaces
+import { Logger, queue } from "utils";
+import { ApiConsumer } from "./apiConsumer";
 import { Info, Members } from "./interfaces/club/Club";
 
-// Utils
-import { api, Logger, queue } from "./utils";
+export default class Club extends ApiConsumer {
+	public async info(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-const info = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+			return this.request<Info>(`/club/${id}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    const { body } = await queue.add(async () => await api(`/club/${id}`, {}));
+	public async members(id: number, page: number = 1) {
+		try {
+			ow(page, ow.number.positive);
+			ow(id, ow.number.positive);
 
-    return body as Info;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
-
-const members = async (id: number, page: number = 1) => {
-  try {
-    ow(page, ow.number.positive);
-    ow(id, ow.number.positive);
-
-    const { body } = await queue.add(
-      async () => await api(`/club/${id}/members/${page}`, {})
-    );
-
-    return body as Members;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
-
-export default {
-  info,
-  members
-};
+			return this.request<Members>(`/club/${id}/members/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
+}

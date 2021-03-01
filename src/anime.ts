@@ -15,11 +15,10 @@ import { UserUpdates } from "./interfaces/anime/UserUpdates";
 import { Videos } from "./interfaces/anime/Videos";
 
 // Utils
-import { ApiConsumer } from './apiConsumer';
+import { ApiConsumer } from "./apiConsumer";
 import { Logger } from "./utils";
 
 export default class Anime extends ApiConsumer {
-
 	/**
 	 * Fetches the anime with the given ID
 	 *
@@ -44,7 +43,9 @@ export default class Anime extends ApiConsumer {
 		try {
 			ow(id, ow.number.positive);
 
-			return this.request<CharactersStaff>(`/anime/${id}/characters_staff`);
+			return this.request<CharactersStaff>(
+				`/anime/${id}/characters_staff`
+			);
 		} catch (error) {
 			Logger.error(error);
 		}
@@ -136,7 +137,9 @@ export default class Anime extends ApiConsumer {
 		try {
 			ow(id, ow.number.positive);
 
-			return this.request<Recommendations>(`/anime/${id}/recommendations`);
+			return this.request<Recommendations>(
+				`/anime/${id}/recommendations`
+			);
 		} catch (error) {
 			Logger.error(error);
 		}
@@ -185,7 +188,9 @@ export default class Anime extends ApiConsumer {
 			ow(id, ow.number.positive);
 			ow(page, ow.number.positive);
 
-			return this.request<UserUpdates>(`/anime/${id}/userupdates/${page}`);
+			return this.request<UserUpdates>(
+				`/anime/${id}/userupdates/${page}`
+			);
 		} catch (error) {
 			Logger.error(error);
 		}

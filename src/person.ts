@@ -12,19 +12,19 @@ import { api, Logger, queue } from "./utils";
  * @param id - The person id
  */
 const pictures = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	try {
+		ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/person/${id}/pictures`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/person/${id}/pictures`, {})
+		);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  pictures
+	pictures,
 };

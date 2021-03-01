@@ -15,31 +15,31 @@ import { api, Logger, queue } from "./utils";
  * @param subType - Top items of this subtype
  */
 const items = async (
-  type: Types = "anime",
-  page: number = 1,
-  subType?: SubTypes
+	type: Types = "anime",
+	page: number = 1,
+	subType?: SubTypes
 ) => {
-  try {
-    ow(page, ow.number.positive);
+	try {
+		ow(page, ow.number.positive);
 
-    if (subType) {
-      const result = await queue.add(
-        async () => await api(`/top/${type}/${page}/${subType}`, {})
-      );
+		if (subType) {
+			const result = await queue.add(
+				async () => await api(`/top/${type}/${page}/${subType}`, {})
+			);
 
-      return result.body as Result;
-    }
+			return result.body as Result;
+		}
 
-    const { body } = await queue.add(
-      async () => await api(`/top/${type}/${page}`, {})
-    );
+		const { body } = await queue.add(
+			async () => await api(`/top/${type}/${page}`, {})
+		);
 
-    return body as Result;
-  } catch (error) {
-    Logger.error(error);
-  }
+		return body as Result;
+	} catch (error) {
+		Logger.error(error);
+	}
 };
 
 export default {
-  items
+	items,
 };
