@@ -1,5 +1,5 @@
 import ow from "ow";
-import { Logger } from "utils";
+import { Logger } from "./utils";
 import { ApiConsumer } from "./apiConsumer";
 
 export default class Person extends ApiConsumer {

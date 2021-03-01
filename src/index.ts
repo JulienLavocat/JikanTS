@@ -29,7 +29,7 @@ export default class Jikan {
 	public Schedule: Schedule;
 	public Search: Search;
 	public Season: Season;
-	// public Top: Top;
+	public Top: Top;
 	// public User: User;
 
 	private httpClient: JikanHttpClient;
@@ -48,5 +48,6 @@ export default class Jikan {
 		this.Producer = new Producer(this.httpClient);
 		this.Schedule = new Schedule(this.httpClient);
 		this.Season = new Season(this.httpClient);
+		this.Top = new Top(this.httpClient);
 	}
 }

@@ -1,6 +1,6 @@
 import { Days, Schedule as ScheduleType } from "./interfaces/schedule/Schedule";
 import { ApiConsumer } from "./apiConsumer";
-import { Logger } from "utils";
+import { Logger } from "./utils";
 
 export default class Schedule extends ApiConsumer {
 	/**

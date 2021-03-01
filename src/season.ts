@@ -4,7 +4,7 @@ import { SeasonArchive } from "./interfaces/season/SeasonArchive";
 import { SeasonLater } from "./interfaces/season/SeasonLater";
 
 import { ApiConsumer } from "./apiConsumer";
-import { Logger } from "utils";
+import { Logger } from "./utils";
 
 export default class Season extends ApiConsumer {
 	/**

@@ -3,6 +3,7 @@ export interface Result {
 	readonly request_cached: boolean;
 	readonly request_hash: string;
 	readonly top: Top[];
+	readonly body?: any;
 }
 
 interface Top {
