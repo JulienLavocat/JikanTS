@@ -1,199 +1,153 @@
-// Imports
 import ow from "ow";
 
-// Interfaces
 import { Characters } from "./interfaces/manga/Characters";
 import { News } from "./interfaces/manga/News";
 import { Reviews } from "./interfaces/manga/Reviews";
 import { Stats } from "./interfaces/manga/Stats";
 import { UserUpdates } from "./interfaces/manga/UserUpdates";
 
-// Utils
-import { api, Logger, queue } from "./utils";
+import { ApiConsumer } from "./apiConsumer";
+import { Logger } from "utils";
 
-/**
- * Fetches the list of characters & staff members of the manga
- *
- * @param id - The manga id
- */
-const characters = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+export default class Manga extends ApiConsumer {
+	/**
+	 * Fetches the list of characters & staff members of the manga
+	 *
+	 * @param id - The manga id
+	 */
+	public async characters(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/characters`, {})
-		);
-
-		return body as Characters;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<Characters>(`/manga/${id}/characters`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches forum topics related to the item
- *
- * @param id - The manga id
- */
-const forum = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+	/**
+	 * Fetches forum topics related to the item
+	 *
+	 * @param id - The manga id
+	 */
+	public async forum(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/forum`, {})
-		);
-
-		return body;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<any>(`/manga/${id}/forum`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches more info related to the item
- *
- * @param id - The manga id
- */
-const moreInfo = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+	/**
+	 * Fetches more info related to the item
+	 *
+	 * @param id - The manga id
+	 */
+	public async moreInfo(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/moreinfo`, {})
-		);
-
-		return body;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<any>(`/manga/${id}/moreinfo`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches news related to the item
- *
- * @param id - The manga id
- */
-const news = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+	/**
+	 * Fetches news related to the item
+	 *
+	 * @param id - The manga id
+	 */
+	public async news(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/news`, {})
-		);
-
-		return body as News;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<News>(`/manga/${id}/news`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches pictures related to the item
- *
- * @param id - The manga id
- */
-const pictures = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+	/**
+	 * Fetches pictures related to the item
+	 *
+	 * @param id - The manga id
+	 */
+	public async pictures(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/pictures`, {})
-		);
-
-		return body;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<any>(`/manga/${id}/pictures`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches recommendations and their weightage made by users
- *
- * @param id - The manga id
- */
-const recommendations = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+	/**
+	 * Fetches recommendations and their weightage made by users
+	 *
+	 * @param id - The manga id
+	 */
+	public async recommendations(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/recommendations`, {})
-		);
-
-		return body;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<any>(`/manga/${id}/recommendations`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches reviews written by users
- *
- * @param id - The manga id
- * @param page - The page number
- */
-const reviews = async (id: number, page: number = 1) => {
-	try {
-		ow(id, ow.number.positive);
-		ow(page, ow.number.positive);
+	/**
+	 * Fetches reviews written by users
+	 *
+	 * @param id - The manga id
+	 * @param page - The page number
+	 */
+	public async reviews(id: number, page: number = 1) {
+		try {
+			ow(id, ow.number.positive);
+			ow(page, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/reviews/${page}`, {})
-		);
-
-		return body as Reviews;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<Reviews>(`/manga/${id}/reviews/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches statistical information related to the item
- *
- * @param id - The manga id
- */
-const stats = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
+	/**
+	 * Fetches statistical information related to the item
+	 *
+	 * @param id - The manga id
+	 */
+	public async stats(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/stats`, {})
-		);
-
-		return body as Stats;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<Stats>(`/manga/${id}/stats`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches latest list updates made by users
- *
- * @param id - The manga id
- * @param page - The page number
- */
-const userUpdates = async (id: number, page: number = 1) => {
-	try {
-		ow(id, ow.number.positive);
-		ow(page, ow.number.positive);
+	/**
+	 * Fetches latest list updates made by users
+	 *
+	 * @param id - The manga id
+	 * @param page - The page number
+	 */
+	public async userUpdates(id: number, page: number = 1) {
+		try {
+			ow(id, ow.number.positive);
+			ow(page, ow.number.positive);
 
-		const { body } = await queue.add(
-			async () => await api(`/manga/${id}/userupdates/${page}`, {})
-		);
-
-		return body as UserUpdates;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<UserUpdates>(
+				`/manga/${id}/userupdates/${page}`
+			);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
-
-export default {
-	characters,
-	forum,
-	moreInfo,
-	news,
-	pictures,
-	recommendations,
-	reviews,
-	stats,
-	userUpdates,
-};
+}
