@@ -1,30 +1,20 @@
-// Imports
 import ow from "ow";
+import { Logger } from "utils";
+import { ApiConsumer } from "./apiConsumer";
 
-// Interfaces
+export default class Person extends ApiConsumer {
+	/**
+	 * Fetches pictures related to the item
+	 *
+	 * @param id - The person id
+	 */
+	public async pictures(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-// Utils
-import { api, Logger, queue } from "./utils";
-
-/**
- * Fetches pictures related to the item
- *
- * @param id - The person id
- */
-const pictures = async (id: number) => {
-	try {
-		ow(id, ow.number.positive);
-
-		const { body } = await queue.add(
-			async () => await api(`/person/${id}/pictures`, {})
-		);
-
-		return body;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<any>(`/person/${id}/pictures`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
-
-export default {
-	pictures,
-};
+}

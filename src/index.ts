@@ -24,7 +24,7 @@ export default class Jikan {
 	public Magazine: Magazine;
 	public Manga: Manga;
 	public Meta: Meta;
-	// public Person: Person;
+	public Person: Person;
 	// public Producer: Producer;
 	// public Schedule: Schedule;
 	public Search: Search;
@@ -44,5 +44,6 @@ export default class Jikan {
 		this.Magazine = new Magazine(this.httpClient);
 		this.Manga = new Manga(this.httpClient);
 		this.Meta = new Meta(this.httpClient);
+		this.Person = new Person(this.httpClient);
 	}
 }
