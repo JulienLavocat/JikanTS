@@ -23,7 +23,7 @@ export default class Jikan {
 	public Genre: Genre;
 	public Magazine: Magazine;
 	public Manga: Manga;
-	// public Meta: Meta;
+	public Meta: Meta;
 	// public Person: Person;
 	// public Producer: Producer;
 	// public Schedule: Schedule;
@@ -43,5 +43,6 @@ export default class Jikan {
 		this.Genre = new Genre(this.httpClient);
 		this.Magazine = new Magazine(this.httpClient);
 		this.Manga = new Manga(this.httpClient);
+		this.Meta = new Meta(this.httpClient);
 	}
 }

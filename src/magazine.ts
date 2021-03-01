@@ -1,7 +1,7 @@
 import ow from "ow";
 import { Magazine as MagazineResult } from "./interfaces/magazine/Magazine";
 import { ApiConsumer } from "./apiConsumer";
-import { Logger } from "utils";
+import { Logger } from "./utils";
 
 export default class Magazine extends ApiConsumer {
 	/**

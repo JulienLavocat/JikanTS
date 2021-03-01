@@ -2,7 +2,7 @@ import ow from "ow";
 
 import { Anime, Manga } from "./interfaces/genre/Genre";
 import { ApiConsumer } from "./apiConsumer";
-import { Logger } from "utils";
+import { Logger } from "./utils";
 
 export default class Genre extends ApiConsumer {
 	/**

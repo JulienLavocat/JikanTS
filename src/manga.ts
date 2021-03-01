@@ -7,7 +7,7 @@ import { Stats } from "./interfaces/manga/Stats";
 import { UserUpdates } from "./interfaces/manga/UserUpdates";
 
 import { ApiConsumer } from "./apiConsumer";
-import { Logger } from "utils";
+import { Logger } from "./utils";
 
 export default class Manga extends ApiConsumer {
 	/**
