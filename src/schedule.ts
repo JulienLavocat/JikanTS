@@ -1,24 +1,16 @@
-// Interfaces
-import { Days, Schedule } from "./interfaces/schedule/Schedule";
+import { Days, Schedule as ScheduleType } from "./interfaces/schedule/Schedule";
+import { ApiConsumer } from "./apiConsumer";
+import { Logger } from "utils";
 
-// Utils
-import { api, Logger, queue } from "./utils";
-
-/**
- * Fetches anime schedule of the week or specified day
- */
-const anime = async (day: Days = "monday") => {
-	try {
-		const { body } = await queue.add(
-			async () => await api(`/schedule/${day}`, {})
-		);
-
-		return body as Schedule;
-	} catch (error) {
-		Logger.error(error);
+export default class Schedule extends ApiConsumer {
+	/**
+	 * Fetches anime schedule of the week or specified day
+	 */
+	public async anime(day: Days = "monday") {
+		try {
+			return this.request<ScheduleType>(`/schedule/${day}`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
-
-export default {
-	anime,
-};
+}

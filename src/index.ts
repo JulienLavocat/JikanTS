@@ -26,7 +26,7 @@ export default class Jikan {
 	public Meta: Meta;
 	public Person: Person;
 	public Producer: Producer;
-	// public Schedule: Schedule;
+	public Schedule: Schedule;
 	public Search: Search;
 	// public Season: Season;
 	// public Top: Top;
@@ -46,5 +46,6 @@ export default class Jikan {
 		this.Meta = new Meta(this.httpClient);
 		this.Person = new Person(this.httpClient);
 		this.Producer = new Producer(this.httpClient);
+		this.Schedule = new Schedule(this.httpClient);
 	}
 }
