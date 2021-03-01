@@ -21,7 +21,7 @@ export default class Jikan {
 	public Anime: Anime;
 	public Club: Club;
 	public Genre: Genre;
-	// public Magazine: Magazine;
+	public Magazine: Magazine;
 	// public Manga: Manga;
 	// public Meta: Meta;
 	// public Person: Person;
@@ -41,5 +41,6 @@ export default class Jikan {
 		this.Search = new Search(this.httpClient);
 		this.Club = new Club(this.httpClient);
 		this.Genre = new Genre(this.httpClient);
+		this.Magazine = new Magazine(this.httpClient);
 	}
 }
