@@ -1,145 +1,99 @@
-// Imports
 import ow from "ow";
-
-// Interfaces
 import { AnimeList, AnimeListTypes } from "./interfaces/user/AnimeList";
 import { Friends } from "./interfaces/user/Friends";
 import { History, Types } from "./interfaces/user/History";
 import { MangaList, MangaListTypes } from "./interfaces/user/MangaList";
 import { Profile } from "./interfaces/user/Profile";
+import { ApiConsumer } from "./apiConsumer";
+import { Logger } from "./utils";
 
-// Utils
-import { api, Logger, queue } from "./utils";
+export default class User extends ApiConsumer {
+	/**
+	 * Fetches the specified user animelist
+	 *
+	 * @param username - Username on MyAnimeList
+	 * @param type - The type to search for
+	 * @param page - The page number
+	 */
+	public async animeList(
+		username: string,
+		type: AnimeListTypes = "all",
+		page: number = 1
+	) {
+		try {
+			ow(page, ow.number.positive);
 
-/**
- * Fetches the specified user animelist
- *
- * @param username - Username on MyAnimeList
- * @param type - The type to search for
- * @param page - The page number
- */
-const animeList = async (
-	username: string,
-	type: AnimeListTypes = "all",
-	page: number = 1
-) => {
-	try {
-		ow(page, ow.number.positive);
-
-		const { body } = await queue.add(
-			async () =>
-				await api(`/user/${username}/animelist/${type}/${page}`, {})
-		);
-
-		return body as AnimeList;
-	} catch (error) {
-		Logger.error(error);
-	}
-};
-
-/**
- * Fetches the specified user friends
- *
- * @param username - Username on MyAnimeList
- * @param page - The page number
- */
-const friends = async (username: string, page: number = 1) => {
-	try {
-		ow(page, ow.number.positive);
-
-		const { body } = await queue.add(
-			async () => await api(`/user/${username}/friends/${page}`, {})
-		);
-
-		return body as Friends;
-	} catch (error) {
-		Logger.error(error);
-	}
-};
-
-/**
- * Fetches the specified user history
- *
- * @param username - Username on MyAnimeList
- * @param type - Anime, Manga or Both
- */
-const history = async (username: string, type: Types = "both") => {
-	try {
-		if (type === "anime") {
-			const anime = await queue.add(
-				async () => await api(`/user/${username}/history/anime`, {})
+			return this.request<AnimeList>(
+				`/user/${username}/animelist/${type}/${page}`
 			);
-
-			return anime.body as History;
+		} catch (error) {
+			Logger.error(error);
 		}
+	}
 
-		if (type === "both") {
-			const both = await queue.add(
-				async () => await api(`/user/${username}/history`, {})
+	/**
+	 * Fetches the specified user friends
+	 *
+	 * @param username - Username on MyAnimeList
+	 * @param page - The page number
+	 */
+	public async friends(username: string, page: number = 1) {
+		try {
+			ow(page, ow.number.positive);
+
+			return this.request<Friends>(`/user/${username}/friends/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
+
+	/**
+	 * Fetches the specified user history
+	 *
+	 * @param username - Username on MyAnimeList
+	 * @param type - Anime, Manga or Both
+	 */
+	public async history(username: string, type: Types = "") {
+		try {
+			return this.request<History>(`/user/${username}/history/${type}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
+
+	/**
+	 * Fetches the specified user mangalist
+	 *
+	 * @param username - Username on MyAnimeList
+	 * @param type - The type to search for
+	 * @param page - The page number
+	 */
+	public async mangaList(
+		username: string,
+		type: MangaListTypes = "all",
+		page: number = 1
+	) {
+		try {
+			ow(page, ow.number.positive);
+
+			return this.request<MangaList>(
+				`/user/${username}/mangalist/${type}/${page}`
 			);
-
-			return both.body as History;
+		} catch (error) {
+			Logger.error(error);
 		}
+	}
 
-		if (type === "manga") {
-			const manga = await queue.add(
-				async () => await api(`/user/${username}/history/manga`, {})
-			);
-
-			return manga.body as History;
+	/**
+	 * Fetches the specified user profile
+	 *
+	 * @param username - Username on MyAnimeList
+	 */
+	public async profile(username: string) {
+		try {
+			return this.request<Profile>(`/user/${username}`);
+		} catch (error) {
+			Logger.error(error);
 		}
-	} catch (error) {
-		Logger.error(error);
 	}
-};
-
-/**
- * Fetches the specified user mangalist
- *
- * @param username - Username on MyAnimeList
- * @param type - The type to search for
- * @param page - The page number
- */
-const mangaList = async (
-	username: string,
-	type: MangaListTypes = "all",
-	page: number = 1
-) => {
-	try {
-		ow(page, ow.number.positive);
-
-		const { body } = await queue.add(
-			async () =>
-				await api(`/user/${username}/mangalist/${type}/${page}`, {})
-		);
-
-		return body as MangaList;
-	} catch (error) {
-		Logger.error(error);
-	}
-};
-
-/**
- * Fetches the specified user profile
- *
- * @param username - Username on MyAnimeList
- */
-const profile = async (username: string) => {
-	try {
-		const { body } = await queue.add(
-			async () => await api(`/user/${username}`, {})
-		);
-
-		return body as Profile;
-	} catch (error) {
-		Logger.error(error);
-	}
-};
-
-export default {
-	animeList,
-	friends,
-	history,
-	mangaList,
-	profile,
-};
+}

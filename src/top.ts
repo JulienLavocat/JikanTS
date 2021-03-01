@@ -19,7 +19,9 @@ export default class Top extends ApiConsumer {
 	) {
 		try {
 			ow(page, ow.number.positive);
-			return this.request<Result>(`/top/${type}/${page}/${subType ? subType : ""}`);
+			return this.request<Result>(
+				`/top/${type}/${page}/${subType ? subType : ""}`
+			);
 		} catch (error) {
 			Logger.error(error);
 		}
