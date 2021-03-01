@@ -1,55 +1,41 @@
-// Imports
 import ow from "ow";
 
-// Interfaces
 import { Anime, Manga } from "./interfaces/genre/Genre";
+import { ApiConsumer } from "./apiConsumer";
+import { Logger } from "utils";
 
-// Utils
-import { api, Logger, queue } from "./utils";
+export default class Genre extends ApiConsumer {
+	/**
+	 * Fetches Anime items of the genre
+	 *
+	 * @param genreId - Genre ID from MyAnimeList
+	 * @param page - Number of the page
+	 */
+	public async anime(genreId: number, page: number = 1) {
+		try {
+			ow(genreId, ow.number.lessThanOrEqual(43));
+			ow(genreId, ow.number.greaterThanOrEqual(1));
 
-/**
- * Fetches Anime items of the genre
- *
- * @param genreId - Genre ID from MyAnimeList
- * @param page - Number of the page
- */
-const anime = async (genreId: number, page: number = 1) => {
-	try {
-		ow(genreId, ow.number.lessThanOrEqual(43));
-		ow(genreId, ow.number.greaterThanOrEqual(1));
-
-		const { body } = await queue.add(
-			async () => await api(`/genre/anime/${genreId}/${page}`, {})
-		);
-
-		return body as Anime;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<Anime>(`/genre/anime/${genreId}/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
 
-/**
- * Fetches Manga items of the genre
- *
- * @param genreId - Genre ID from MyAnimeList
- * @param page - Number of the page
- */
-const manga = async (genreId: number, page: number = 1) => {
-	try {
-		ow(genreId, ow.number.lessThanOrEqual(43));
-		ow(genreId, ow.number.greaterThanOrEqual(1));
+	/**
+	 * Fetches Manga items of the genre
+	 *
+	 * @param genreId - Genre ID from MyAnimeList
+	 * @param page - Number of the page
+	 */
+	public async manga(genreId: number, page: number = 1) {
+		try {
+			ow(genreId, ow.number.lessThanOrEqual(43));
+			ow(genreId, ow.number.greaterThanOrEqual(1));
 
-		const { body } = await queue.add(
-			async () => await api(`/genre/manga/${genreId}/${page}`, {})
-		);
-
-		return body as Manga;
-	} catch (error) {
-		Logger.error(error);
+			return this.request<Manga>(`/genre/manga/${genreId}/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
 	}
-};
-
-export default {
-	anime,
-	manga,
-};
+}

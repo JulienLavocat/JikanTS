@@ -20,7 +20,7 @@ const baseUrl = "https://api.jikan.moe/v3";
 export default class Jikan {
 	public Anime: Anime;
 	public Club: Club;
-	// public Genre: Genre;
+	public Genre: Genre;
 	// public Magazine: Magazine;
 	// public Manga: Manga;
 	// public Meta: Meta;
@@ -40,5 +40,6 @@ export default class Jikan {
 		this.Anime = new Anime(this.httpClient);
 		this.Search = new Search(this.httpClient);
 		this.Club = new Club(this.httpClient);
+		this.Genre = new Genre(this.httpClient);
 	}
 }
