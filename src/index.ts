@@ -13,20 +13,33 @@ import Search from "./search";
 import Season from "./season";
 import Top from "./top";
 import User from "./user";
+import { createHttpClient, JikanHttpClient } from './utils';
 
-export default {
-  Anime,
-  Character,
-  Club,
-  Genre,
-  Magazine,
-  Manga,
-  Meta,
-  Person,
-  Producer,
-  Schedule,
-  Search,
-  Season,
-  Top,
-  User
+const baseUrl = "https://api.jikan.moe/v3";
+
+export default class Jikan {
+
+	public Anime: Anime;
+	// public Club: Club;
+	// public Genre: Genre;
+	// public Magazine: Magazine;
+	// public Manga: Manga;
+	// public Meta: Meta;
+	// public Person: Person;
+	// public Producer: Producer;
+	// public Schedule: Schedule;
+	public Search: Search;
+	// public Season: Season;
+	// public Top: Top;
+	// public User: User;
+
+	private httpClient: JikanHttpClient;
+
+	constructor(url: string = baseUrl) {
+		this.httpClient = createHttpClient(url);
+
+		this.Anime = new Anime(this.httpClient);
+		this.Search = new Search(this.httpClient);
+	}
+
 };

@@ -15,251 +15,194 @@ import { UserUpdates } from "./interfaces/anime/UserUpdates";
 import { Videos } from "./interfaces/anime/Videos";
 
 // Utils
-import { api, Logger, queue } from "./utils";
+import { ApiConsumer } from './apiConsumer';
+import { Logger } from "./utils";
 
-/**
- * Fetches the anime with the given ID
- *
- * @param id - The anime id
- */
-const byId = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+export default class Anime extends ApiConsumer {
 
-    const { body } = await queue.add(async () => await api(`/anime/${id}`, {}));
+	/**
+	 * Fetches the anime with the given ID
+	 *
+	 * @param id - The anime id
+	 */
+	public async byId(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    return body as AnimeById;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+			return this.request<AnimeById>(`/anime/${id}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-/**
- * Fetches the list of characters & staff members of the anime
- *
- * @param id - The anime id
- */
-const charactersStaff = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	/**
+	 * Fetches the list of characters & staff members of the anime
+	 *
+	 * @param id - The anime id
+	 */
+	public async charactersStaff(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/characters_staff`, {})
-    );
+			return this.request<CharactersStaff>(`/anime/${id}/characters_staff`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    return body as CharactersStaff;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+	/**
+	 * Fetches the list of episodes of the anime
+	 *
+	 * @param id - The anime id
+	 * @param page - The page number
+	 */
+	public async episodes(id: number, page: number = 1) {
+		try {
+			ow(id, ow.number.positive);
+			ow(page, ow.number.positive);
 
-/**
- * Fetches the list of episodes of the anime
- *
- * @param id - The anime id
- * @param page - The page number
- */
-const episodes = async (id: number, page: number = 1) => {
-  try {
-    ow(id, ow.number.positive);
-    ow(page, ow.number.positive);
+			return this.request<Episodes>(`/anime/${id}/episodes/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/episodes/${page}`, {})
-    );
+	/**
+	 * Fetches forum topics related to the item
+	 *
+	 * @param id - The anime id
+	 */
+	public async forum(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    return body as Episodes;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+			return this.request<Forum>(`/anime/${id}/forum`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-/**
- * Fetches forum topics related to the item
- *
- * @param id - The anime id
- */
-const forum = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	/**
+	 * Fetches more info related to the item
+	 *
+	 * @param id - The anime id
+	 */
+	public async moreInfo(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/forum`, {})
-    );
+			return this.request<MoreInfo>(`/anime/${id}/moreinfo`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    return body as Forum;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+	/**
+	 * Fetches news related to the item
+	 *
+	 * @param id - The anime id
+	 */
+	public async news(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-/**
- * Fetches more info related to the item
- *
- * @param id - The anime id
- */
-const moreInfo = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+			return this.request<News>(`/anime/${id}/news`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/moreinfo`, {})
-    );
+	/**
+	 * Fetches pictures related to the item
+	 *
+	 * @param id - The anime id
+	 */
+	public async pictures(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    return body as MoreInfo;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+			return this.request<any>(`/anime/${id}/pictures`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-/**
- * Fetches news related to the item
- *
- * @param id - The anime id
- */
-const news = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	/**
+	 * Fetches recommendations and their weightage made by users
+	 *
+	 * @param id - The anime id
+	 */
+	public async recommendations(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/news`, {})
-    );
+			return this.request<Recommendations>(`/anime/${id}/recommendations`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    return body as News;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+	/**
+	 * Fetches reviews written by users
+	 *
+	 * @param id - The anime id
+	 * @param page - The page number
+	 */
+	public async reviews(id: number, page: number = 1) {
+		try {
+			ow(id, ow.number.positive);
+			ow(page, ow.number.positive);
 
-/**
- * Fetches pictures related to the item
- *
- * @param id - The anime id
- */
-const pictures = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+			return this.request<Reviews>(`/anime/${id}/reviews/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/pictures`, {})
-    );
+	/**
+	 * Fetches statistical information related to the item
+	 *
+	 * @param id - The anime id
+	 */
+	public async stats(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-    return body;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+			return this.request<Stats>(`/anime/${id}/stats`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-/**
- * Fetches recommendations and their weightage made by users
- *
- * @param id - The anime id
- */
-const recommendations = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
+	/**
+	 * Fetches latest list updates made by users
+	 *
+	 * @param id - The anime id
+	 * @param page - The page number
+	 */
+	public async userUpdates(id: number, page: number = 1) {
+		try {
+			ow(id, ow.number.positive);
+			ow(page, ow.number.positive);
 
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/recommendations`, {})
-    );
+			return this.request<UserUpdates>(`/anime/${id}/userupdates/${page}`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
 
-    return body as Recommendations;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
+	/**
+	 * Fetches PV & episodes (if any) related to the item
+	 *
+	 * @param id - The anime id
+	 */
+	public async videos(id: number) {
+		try {
+			ow(id, ow.number.positive);
 
-/**
- * Fetches reviews written by users
- *
- * @param id - The anime id
- * @param page - The page number
- */
-const reviews = async (id: number, page: number = 1) => {
-  try {
-    ow(id, ow.number.positive);
-    ow(page, ow.number.positive);
-
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/reviews/${page}`, {})
-    );
-
-    return body as Reviews;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
-
-/**
- * Fetches statistical information related to the item
- *
- * @param id - The anime id
- */
-const stats = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
-
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/stats`, {})
-    );
-
-    return body as Stats;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
-
-/**
- * Fetches latest list updates made by users
- *
- * @param id - The anime id
- * @param page - The page number
- */
-const userUpdates = async (id: number, page: number = 1) => {
-  try {
-    ow(id, ow.number.positive);
-    ow(page, ow.number.positive);
-
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/userupdates/${page}`, {})
-    );
-
-    return body as UserUpdates;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
-
-/**
- * Fetches PV & episodes (if any) related to the item
- *
- * @param id - The anime id
- */
-const videos = async (id: number) => {
-  try {
-    ow(id, ow.number.positive);
-
-    const { body } = await queue.add(
-      async () => await api(`/anime/${id}/videos`, {})
-    );
-
-    return body as Videos;
-  } catch (error) {
-    Logger.error(error);
-  }
-};
-
-export default {
-  byId,
-  charactersStaff,
-  episodes,
-  forum,
-  moreInfo,
-  news,
-  pictures,
-  recommendations,
-  reviews,
-  stats,
-  userUpdates,
-  videos
-};
+			return this.request<Videos>(`/anime/${id}/videos`);
+		} catch (error) {
+			Logger.error(error);
+		}
+	}
+}

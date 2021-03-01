@@ -5,7 +5,7 @@
     "baseUrl": "src",
     "declaration": true,
     "esModuleInterop": true,
-    "lib": ["es2017", "es7", "es6", "dom"],
+    "lib": ["ESNext", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist",
@@ -13,7 +13,7 @@
     "removeComments": true,
     "resolveJsonModule": true,
     "strict": true,
-    "target": "es2015"
+    "target": "ESNext"
   },
   "exclude": ["node_modules", "tests/**/*.ts", "dist/**/*.ts"],
   "include": ["src/**/*.ts"]

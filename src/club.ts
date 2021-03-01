@@ -1,4 +1,3 @@
-// Imports
 import ow from "ow";
 
 // Interfaces
